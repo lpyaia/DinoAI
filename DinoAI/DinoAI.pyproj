@@ -27,6 +27,9 @@
     <Compile Include="StopWatch.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Vision.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.8" />

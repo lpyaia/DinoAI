@@ -23,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CollectData.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DinoAI.py" />
     <Compile Include="StopWatch.py">
       <SubType>Code</SubType>
@@ -33,6 +36,9 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.8" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

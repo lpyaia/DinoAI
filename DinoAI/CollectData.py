@@ -4,12 +4,12 @@ from pynput import keyboard
 from datetime import datetime
 
 class CollectData:
-    def __init__(self, vision, distX, distY, currentSpeed):
+    def __init__(self, vision):
         self.__vision = vision
-        self.distX = distX
-        self.distY = distY
+        self.distX = 999999
+        self.distY = 999999
         self.exit = False
-        self.currentSpeed = currentSpeed
+        self.currentSpeed = 999999
         self.data = None
 
     def __keyboardEvent(self, key):

@@ -109,11 +109,7 @@ class Vision:
             elif enemies[0][0] < 400 and self.__ableToMeasure == True:
                 self.__ableToMeasure = False
                 self.__stopwatch.stop()
-                elapsedTime = self.__stopwatch.get_elapsed_time()
-
-                if elapsedTime < self.__dt:
-                    self.__dt = elapsedTime
-                    print(f"current speed: {self.__dt}")
+                self.__dt = self.__stopwatch.get_elapsed_time()
 
                 self.__stopwatch = None
 
@@ -125,9 +121,11 @@ class Vision:
                 (enemy[0] + enemy[2], enemy[1] + enemy[3]), 
                 (0, 0, 0), 
                 2)
-
-            cv2.imshow('Contours', imgCrop)
-            cv2.waitKey(1)
+        
+        cv2.line(imgCrop, (1000, 350), (1000, 0), (0, 255, 0), thickness=2)
+        cv2.line(imgCrop, (400, 350), (400, 0), (0, 255, 0), thickness=2)
+        cv2.imshow('Contours', imgCrop)
+        cv2.waitKey(1)
 
     def __getDistanceSensor(self, enemies):
         dx = 0
@@ -151,11 +149,11 @@ class Vision:
             contours, imgCrop =  self.__findImageContours(imgArray)
             enemies = self.__getEnemiesFromContours(contours)
             enemies = self.__groupClosestEnemies(enemies)
-            self.__setCurrentSpeed(enemies)
+            #self.__setCurrentSpeed(enemies)
             #self.__drawEnemies(enemies, imgCrop)
             self.__dx, self.__dy = self.__getDistanceSensor(enemies)
 
-            return self.__dx, self.__dy, self.__dt
+            return self.__dx, self.__dy
             
-        return self.__dx, self.__dy, self.__dt
+        return self.__dx, self.__dy
 

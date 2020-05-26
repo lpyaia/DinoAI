@@ -19,7 +19,7 @@ class CollectData:
             k = key.char  # single-char keys
         except:
             k = key.name  # other keys
-        if k in ['up', 'down', 'e', 'r']:  # keys of interest
+        if k in ['up', 'e', 'r']:  # keys of interest
             # self.keys.append(k)  # store it in global-like variable
 
             if(k == 'r'): 
@@ -33,11 +33,36 @@ class CollectData:
                 self.exit = True
             
             else: 
-                print(f"[{k}, {self.distX}, {self.distY}, {self.currentSpeed}]")
-                newrow = [k, self.distX, self.distY, self.currentSpeed]
+                print(f"[1, {self.distX}, {self.distY}, {self.currentSpeed}]")
+
+                newrow = [self.distX, self.distY, self.currentSpeed, int(1)]
+               
+                if len(self.data) > 0:
+                    lastdx, _, _, _ = self.getLastRow()
                 
-                if self.data is None: self.data = newrow
-                else: self.data = np.vstack([ self.data, newrow  ])
+                    if lastdx == self.distX:
+                        self.data[len(self.data) - 1][0] = int(-1)
+                        self.data[len(self.data) - 1][1] = int(-1)
+
+                self.insertData(newrow)
+
+    def insertData(self, newrow):
+        if self.data is None: self.data = newrow
+        else: self.data = np.vstack([ self.data, newrow ])
+
+    def insertNonActionRow(self):
+        lastdx = -1
+
+        if isinstance(self.data, np.ndarray) and len(self.data) > 0:
+            lastdx, _, _, _ = self.getLastRow()
+
+        if lastdx != self.distX:
+            print(f"[0, {self.distX}, {self.distY}, {self.currentSpeed}]")
+            newrow = [self.distX, self.distY, self.currentSpeed, int(0)]
+            self.insertData(newrow)
+
+    def getLastRow(self):
+        return self.data[len(self.data) - 1]
 
     def __saveCsv(self):
         fileName = datetime.now().strftime("%Y-%m-%d %H-%M-%S.csv")
